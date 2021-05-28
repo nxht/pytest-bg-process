@@ -1,0 +1,10 @@
+site_name: pytest-bg-process
+site_description: A simple plugin to use with pytest
+site_author: IndlgO
+
+theme: readthedocs
+
+repo_url: https://github.com/IndlgO/pytest-bg-process
+
+pages:
+- Home: index.md
