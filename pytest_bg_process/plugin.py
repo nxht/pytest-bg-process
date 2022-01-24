@@ -1,21 +1,9 @@
-# -*- coding: utf-8 -*-
-
 import os
 import subprocess
 import time
 
 
 def pytest_addoption(parser):
-    # group = parser.getgroup("bg-process")
-    # group.addoption(
-    #     "--background-cmd",
-    #     action="store",
-    #     metavar="CMD",
-    #     dest="background_cmd",
-    #     default=None,
-    #     help="Path to command to run at background. Default: None",
-    # )
-
     parser.addini(
         "background-cmd",
         help="Path to command to run at background. Default: None",

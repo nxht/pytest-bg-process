@@ -14,17 +14,18 @@ def read(fname):
 
 setup(
     name="pytest-bg-process",
-    version="0.0.2",
-    author="IndlgO",
+    version="0.0.4",
+    author="NoThlnG",
     author_email="hanguyl91@gmail.com",
-    maintainer="IndlgO",
+    maintainer="NoThlnG",
     maintainer_email="hanguyl91@gmail.com",
     license="MIT",
     url="https://github.com/IndlgO/pytest-bg-process",
     description="Pytest plugin to initialize background process",
     long_description=read("README.md"),
     long_description_content_type="text/markdown",
-    py_modules=["pytest_bg_process"],
+    packages=["pytest_bg_process"],
+    entry_points={"pytest11": ["bg-process = pytest_bg_process.plugin"]},
     python_requires=">=3.5",
     install_requires=["pytest>=3.5.0"],
     classifiers=[
@@ -44,5 +45,4 @@ setup(
         "Operating System :: OS Independent",
         "License :: OSI Approved :: MIT License",
     ],
-    entry_points={"pytest11": ["bg-process = pytest_bg_process"]},
 )
