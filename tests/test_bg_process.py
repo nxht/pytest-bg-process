@@ -1,29 +1,10 @@
-# -*- coding: utf-8 -*-
-
-
-# def test_bar_fixture(testdir):
-#     """Make sure that pytest accepts our fixture."""
-
-#     # create a temporary pytest test module
-#     testdir.makepyfile(
-#         """
-#         def test_sth(bar):
-#             assert bar == "europython2015"
-#     """
-#     )
-
-#     # run pytest with the following cmd args
-#     result = testdir.runpytest("--background-cmd=europython2015", "-v")
-
-#     # fnmatch_lines does an assertion internally
-#     result.stdout.fnmatch_lines(["*::test_sth PASSED*"])
-
-#     # make sure that that we get a '0' exit code for the testsuite
-#     assert result.ret == 0
+import os
 
 
 def test_help_message(testdir):
-    result = testdir.runpytest("--help",)
+    result = testdir.runpytest(
+        "--help",
+    )
     # fnmatch_lines does an assertion internally
     result.stdout.fnmatch_lines(["*background-cmd (string):*"])
 
@@ -32,7 +13,7 @@ def test_hello_ini_setting(testdir):
     testdir.makeini(
         """
         [pytest]
-        background-cmd=sleep 10
+        background-cmd=echo test
     """
     )
 
@@ -45,14 +26,18 @@ def test_hello_ini_setting(testdir):
             return request.config.getini('background-cmd')
 
         def test_hello_world(hello):
-            assert hello == 'sleep 10'
+            assert hello == 'echo test'
     """
     )
 
     result = testdir.runpytest("-v")
 
     # fnmatch_lines does an assertion internally
+    result.stdout.fnmatch_lines(["*Starting echo test*"])
     result.stdout.fnmatch_lines(["*::test_hello_world PASSED*"])
 
     # make sure that that we get a '0' exit code for the testsuite
     assert result.ret == 0
+    assert os.path.exists(testdir.tmpdir.join("background.log"))
+    with open(testdir.tmpdir.join("background.log")) as f:
+        assert "test" in f.read()
